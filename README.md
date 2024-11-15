@@ -1,7 +1,5 @@
-# Full-Stack Web and Mobile Application  
-
-A feature-rich application leveraging modern technologies to deliver a scalable and high-performance solution for web and mobile platforms. It incorporates robust backend architecture, interactive frontend designs, and cross-platform mobile capabilities, all supported by advanced analytics and automated processes.
-
+# ET3_Cash
+A robust full-stack application utilizing Django for the backend, Vue.js for the web frontend, and Flutter for mobile development. Features include automated testing, DevOps pipelines, PostgreSQL, a data warehouse, and analytics for advanced insights and scalability.
 ---
 
 ## **Features**
