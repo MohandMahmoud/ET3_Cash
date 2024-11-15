@@ -1,0 +1,97 @@
+pipeline {
+    agent any
+    
+    environment {
+        
+        DOCKER_IMAGE_FRONTEND = 'your-dockerhub-username/frontend:latest'
+        DOCKER_IMAGE_BACKEND = 'your-dockerhub-username/backend:latest'
+        KUBECONFIG_CREDENTIALS = credentials('kubeconfig-credentials-id') 
+    }
+
+    stages {
+        stage('Build Docker Images') {
+            parallel {
+                stage('Build Frontend') {
+                    steps {
+                        dir('frontend') {
+                            script {
+                                docker.build("${DOCKER_IMAGE_FRONTEND}")
+                            }
+                        }
+                    }
+                }
+                stage('Build Backend') {
+                    steps {
+                        dir('backend') {
+                            script {
+                                docker.build("${DOCKER_IMAGE_BACKEND}")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Run Tests') {
+            parallel {
+                stage('Test Frontend') {
+                    steps {
+                        dir('frontend') {
+                            sh 'npm install'   
+                            sh 'npm test'      
+                        }
+                    }
+                }
+                stage('Test Backend') {
+                    steps {
+                        dir('backend') {
+                            sh 'pip install -r requirements.txt'  // Install dependencies
+                            sh 'pytest'                            // Run tests
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to Staging') {
+            steps {
+                script {
+                    // Login to Docker Hub
+                    sh 'echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin'
+                    
+                    // Push Docker images to Docker Hub
+                    sh "docker push ${DOCKER_IMAGE_FRONTEND}"
+                    sh "docker push ${DOCKER_IMAGE_BACKEND}"
+                    
+                    // Deploy to Kubernetes
+                    sh 'kubectl apply -f k8s/'
+                }
+            }
+        }
+
+        stage('Deploy to Production') {
+            steps {
+                input 'Deploy to Production?' // Manual approval for production deployment
+                script {
+                    // Deploy to Kubernetes production environment
+                    sh 'kubectl apply -f k8s/'
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            notifyBuildStatus('success')
+        }
+        failure {
+            notifyBuildStatus('failure')
+        }
+    }
+}
+
+// Define a function for notification (optional)
+def notifyBuildStatus(String status) {
+    // Send notifications (e.g., email, Slack, etc.)
+    echo "Build status: ${status}"
+}

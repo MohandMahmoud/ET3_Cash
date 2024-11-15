@@ -1,0 +1,23 @@
+# Basic Django framework
+Django>=3.2,<4.0
+
+# Django REST Framework for building APIs
+djangorestframework>=3.12,<4.0
+
+# PostgreSQL adapter for Django
+psycopg2-binary>=2.9,<3.0
+
+# Additional dependencies (add as needed)
+# For example, if you are using CORS in your project
+django-cors-headers>=3.10,<4.0
+
+# For handling environment variables
+python-decouple>=3.4,<4.0
+
+# If you're using JWT for authentication
+djangorestframework-simplejwt>=5.0,<6.0
+
+# For handling file uploads (if needed)
+Pillow>=8.2,<9.0
+
+# Any other libraries you are using in your project

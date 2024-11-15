@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  frontend_url: "http://frontend-service"
+  backend_url: "http://backend-service"
+  environment: "production"

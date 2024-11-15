@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 400px;
+            background-color: white;
+            padding: 30px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid gray; /* Initial border color */
+            border-radius: 4px;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: border-color 0.3s;
+        }
+
+        input.valid {
+            border-color: green; /* Border color when input is valid */
+        }
+
+        input.error {
+            border-color: red; /* Border color for errors */
+        }
+
+        .error-message {
+            color: red;
+            font-size: 0.9em;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none; /* Hide initially */
+        }
+
+        button {
+            width: 100%;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-top: 10px;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Sign Up</h1>
+        <form id="signupForm">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <div id="usernameError" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                <div id="emailError" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <div id="passwordError" class="error-message"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <div id="confirmPasswordError" class="error-message"></div>
+            </div>
+
+            <button type="submit">Sign Up</button>
+        </form>
+        <div class="footer">
+            Already have an account? <a href="/login">Login here</a>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('signupForm');
+
+            form.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent default form submission
+
+                // Clear previous error messages
+                clearErrors();
+
+                const username = document.getElementById('username');
+                const email = document.getElementById('email');
+                const password = document.getElementById('password');
+                const confirmPassword = document.getElementById('confirmPassword');
+
+                let hasError = false;
+
+                // Validate inputs
+                hasError |= validateUsername(username);
+                hasError |= validateEmail(email);
+                hasError |= validatePassword(password);
+                hasError |= validateConfirmPassword(password, confirmPassword);
+
+                if (!hasError) {
+                    // Submit the form data to a server (replace this with your actual server-side logic)
+                    submitForm({ username: username.value, email: email.value, password: password.value });
+                }
+            });
+
+            function clearErrors() {
+                const errorMessages = document.querySelectorAll('.error-message');
+                errorMessages.forEach(error => {
+                    error.style.display = 'none';
+                });
+
+                const inputs = document.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.classList.remove('error', 'valid');
+                    input.style.borderColor = 'gray'; // Reset border color to gray
+                });
+            }
+
+            function handleInputChange(input) {
+                if (input.value.trim() === '') {
+                    input.classList.remove('valid', 'error');
+                    input.style.borderColor = 'gray'; // Reset to gray
+                } else {
+                    input.classList.remove('error');
+                    input.classList.add('valid'); // Mark as valid if filled
+                    input.style.borderColor = 'green'; // Change to green if filled
+                }
+            }
+
+            function validateUsername(input) {
+                const errorElement = document.getElementById('usernameError');
+                if (input.value.length < 3 || input.value.length > 25) {
+                    errorElement.textContent = 'Username must be between 3 and 25 characters long.';
+                    errorElement.style.display = 'block';
+                    input.classList.add('error');
+                    input.style.borderColor = 'red'; // Set border color to red on error
+                    return true; // Indicates an error
+                } else {
+                    handleInputChange(input); // Handle valid case
+                    return false; // No error
+                }
+            }
+
+            function validateEmail(input) {
+                const errorElement = document.getElementById('emailError');
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
+                if (!emailPattern.test(input.value)) {
+                    errorElement.textContent = 'Please enter a valid email address.';
+                    errorElement.style.display = 'block';
+                    input.classList.add('error');
+                    input.style.borderColor = 'red'; // Set border color to red on error
+                    return true; // Indicates an error
+                } else {
+                    handleInputChange(input); // Handle valid case
+                    return false; // No error
+                }
+            }
+
+            function validatePassword(input) {
+                const errorElement = document.getElementById('passwordError');
+                if (input.value.length < 8) {
+                    errorElement.textContent = 'Password must be at least 8 characters long.';
+                    errorElement.style.display = 'block';
+                    input.classList.add('error');
+                    input.style.borderColor = 'red'; // Set border color to red on error
+                    return true; // Indicates an error
+                } else {
+                    handleInputChange(input); // Handle valid case
+                    return false; // No error
+                }
+            }
+
+            function validateConfirmPassword(passwordInput, confirmPasswordInput) {
+                const errorElement = document.getElementById('confirmPasswordError');
+                if (passwordInput.value !== confirmPasswordInput.value) {
+                    errorElement.textContent = 'Passwords do not match.';
+                    errorElement.style.display = 'block';
+                    confirmPasswordInput.classList.add('error');
+                    confirmPasswordInput.style.borderColor = 'red'; // Set border color to red on error
+                    return true; // Indicates an error
+                } else {
+                    handleInputChange(confirmPasswordInput); // Handle valid case
+                    return false; // No error
+                }
+            }
+
+            function submitForm(data) {
+                fetch('/signup', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Signup successful!');
+                        // Redirect to a success page or other action
+                    } else {
+                        alert('Signup failed. Please try again.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred. Please try again later.');
+                });
+            }
+
+            // Add event listeners for input change to handle live updates
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', () => handleInputChange(input));
+            });
+        });
+    </script>
+</body>
+</html>
