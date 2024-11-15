@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Withdraw Savings</title>
+</head>
+<body>
+    <h1>Withdraw Savings</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Withdraw</button>
+    </form>
+</body>
+</html>

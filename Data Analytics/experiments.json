@@ -1,0 +1,184 @@
+[
+    {
+        "experiment_id": "E123",
+        "description": "Growth rate of plants under different light conditions",
+        "results": {
+            "control": "0.2 cm/day",
+            "test": "0.5 cm/day",
+            "growth_index": 2.5
+        },
+        "metadata": {
+            "date": "2023-01-15",
+            "researcher": "Dr. Green",
+            "location": "Lab A"
+        }
+    },
+    {
+        "experiment_id": "E124",
+        "description": "Effect of temperature on enzyme activity",
+        "results": {
+            "control": "No activity",
+            "test": "Incresed activity at 37°C",
+            "temperature_effectiveness": 0.8
+        },
+        "metadata": {
+            "date": "02/10/23",
+            "researcher": "Dr. Blue",
+            "location": "Lab B"
+        }
+    },
+    {
+        "experiment_id": "E125",
+        "description": "Study of microbial growth in different pH levels",
+        "results": {
+            "control": "Neutral growth",
+            "test": "",
+            "growth_rate": null
+        },
+        "metadata": {
+            "date": "2023-03-12",
+            "researcher": "Dr. Red",
+            "location": "Lab C"
+        }
+    },
+    {
+        "experiment_id": "E126",
+        "description": "Comparison of fuel efficiency in hybrid vs. electric cars",
+        "results": {
+            "control": "20 mpg",
+            "test": "50 mpg",
+            "efficiency_increase": "30%"
+        },
+        "metadata": {
+            "date": "April 22, 2023",
+            "researcher": "Dr. Yellow",
+            "location": "Field A"
+        }
+    },
+    {
+        "experiment_id": "E127",
+        "description": "Effect of various diets on weight loss",
+        "results": {
+            "control": "1 kg/week",
+            "test": "2.5 kg/week",
+            "weight_loss_ratio": 2.5
+        },
+        "metadata": {
+            "date": "2023/05/18",
+            "researcher": "Dr. White",
+            "location": "Lab D"
+        }
+    },
+    {
+        "experiment_id": "E128",
+        "description": "Impact of water hardness on detergent effectiveness",
+        "results": {
+            "control": "50% stain removal",
+            "test": "80% stain removal",
+            "effectiveness_gain": 30
+        },
+        "metadata": {
+            "date": "2023-06-22",
+            "researcher": "Dr. Black",
+            "location": "Lab E"
+        }
+    },
+    {
+        "experiment_id": "E129",
+        "description": "Analysis of chemical reaction rates at different temperatures",
+        "results": {
+            "control": "Slow reaction",
+            "test": "Rapid reaction at 60°C",
+            "reaction_time": "15 mins"
+        },
+        "metadata": {
+            "date": "2023-07-15",
+            "researcher": "Dr. Orange",
+            "location": "Lab F"
+        }
+    },
+    {
+        "experiment_id": "E130",
+        "description": "Testing different water purification methods",
+        "results": {
+            "control": "0.5 ppm contaminants",
+            "test": "0.1 ppm contaminants with new method",
+            "purity_increase": "80%"
+        },
+        "metadata": {
+            "date": "08/05/2023",
+            "researcher": "Dr. Purple",
+            "location": "Lab G"
+        }
+    },
+    {
+        "experiment_id": "E131",
+        "description": "Effects of varying light intensities on solar panel efficiency",
+        "results": {
+            "control": "80% efficiency",
+            "test": "90% efficiency at high intensity",
+            "efficiency_gain": "10%"
+        },
+        "metadata": {
+            "date": "2023-09-20",
+            "researcher": "Dr. Gray",
+            "location": "Field B"
+        }
+    },
+    {
+        "experiment_id": "E132",
+        "description": "Comparative study of different insulation materials",
+        "results": {
+            "control": "Standard insulation",
+            "test": "Improved thermal resistance with new material",
+            "thermal_resistance": "High"
+        },
+        "metadata": {
+            "date": "2023-10-10",
+            "researcher": "Dr. Brown",
+            "location": "Lab H"
+        }
+    },
+    {
+        "experiment_id": "E133",
+        "description": "Impact of different exercise regimes on cardiovascular health",
+        "results": {
+            "control": "Moderate improvement",
+            "test": "Significant improvement with high-intensity training",
+            "heart_health_index": 4.2
+        },
+        "metadata": {
+            "date": "2023-11-05",
+            "researcher": "Dr. Pink",
+            "location": "Lab I"
+        }
+    },
+    {
+        "experiment_id": "E134",
+        "description": "Study on the durability of new construction materials",
+        "results": {
+            "control": "5 years",
+            "test": "10 years",
+            "durability_increase": 5
+        },
+        "metadata": {
+            "date": "2023-12-12",
+            "researcher": "Dr. Silver",
+            "location": "Site A"
+        }
+    },
+    {
+        "experiment_id": "E135",
+        "description": "Effects of different fertilizers on crop yield",
+        "results": {
+            "control": "500 kg/acre",
+            "test": "700 kg/acre",
+            "yield_increase": "40%"
+        },
+        "metadata": {
+            "date": "2023-12-18",
+            "researcher": "Dr. Gold",
+            "location": "Field C"
+        }
+    }
+]

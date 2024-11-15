@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cash Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: #343a40;
+            color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .navbar-brand {
+            color: #fff;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.5rem;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .alert {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            transition: opacity 0.5s;
+        }
+
+        body.dark-mode .alert {
+            background-color: #495057;
+            color: #f8f9fa;
+            border-color: #6c757d;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.875rem;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        .profile {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .balance {
+            font-size: 2rem;
+            color: #007bff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: bold;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-toggle {
+            margin-bottom: 20px;
+        }
+
+        /* Transaction Styles */
+        .transaction-list {
+            transition: max-height 0.5s ease-in-out;
+            overflow: hidden;
+        }
+
+        .transaction-item {
+            padding: 10px;
+            border-bottom: 1px solid #e9ecef;
+            animation: slide-in 0.3s forwards;
+        }
+
+        @keyframes slide-in {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="{% static 'images/1724928422745.jpeg' %}" alt="Logo" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;">
+                eT3 - Tomorrow Information Technology · Cash Dashboard
+            </a>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="profile d-flex align-items-center">
+            <img src="{% static 'images/WhatsApp Image 2024-07-22 at 19.59.21_5dcfec06.jpg' %}" alt="Profile Picture" class="img-fluid rounded-circle" style="height: 120px; width: 120px; border: 3px solid #007bff;">
+            <div class="ms-3 text-start">
+                <h5 class="fw-bold text-dark">{{ user.username }}</h5>
+                <p class="text-muted" style="margin-bottom: 0;">{{ user.email }}</p>
+            </div>
+        </div>
+
+        <button class="btn btn-secondary btn-toggle" id="toggle-mode"><i class="fas fa-adjust"></i> Toggle Dark Mode</button>
+        <div id="alert-container"></div>
+
+        <h3 class="balance">Your Current Balance: $<span id="current-balance">{{ balance }}</span></h3>
+        <h3 class="balance">Your Current Savings Balance: $<span id="current-savings-balance">{{ user.savings_balance }}</span></h3>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-wallet"></i> Manage Your Cash
+            </div>
+            <div class="card-body">
+                <form id="action-form" method="post" action="{% url 'dashboard' %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="action" class="form-label">Select Action</label>
+                        <select name="action" id="action" class="form-select" required>
+                            <option value="deposit">Deposit</option>
+                            <option value="withdraw">Withdraw</option>
+                            <option value="send_money">Send Money</option>
+                            <option value="pay_bill">Pay Bill</option>
+                            <option value="create_virtual_card">Create Virtual Card</option>
+                            <option value="donate">Donate</option>
+                            <option value="create_savings_account">Create Savings Account</option>
+                            <option value="withdraw_savings">Withdraw from Savings</option>
+                            <option value="change_pin">Change PIN</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3" id="amount-container">
+                        <label for="amount" class="form-label">Amount</label>
+                        <input type="number" name="amount" id="amount" class="form-control" step="0.01" min="0" required>
+                    </div>
+
+                    <!-- Conditional Inputs Based on Action -->
+                    <div class="mb-3" id="recipient-number-container" style="display: none;">
+                        <label for="recipient_number" class="form-label">Recipient Number</label>
+                        <input type="text" name="recipient_number" id="recipient_number" class="form-control">
+                    </div>
+
+                    <div class="mb-3" id="bill-type-container" style="display: none;">
+                        <label for="bill_type" class="form-label">Bill Type</label>
+                        <select name="bill_type" id="bill_type" class="form-select">
+                            <option value="Gas">Gas</option>
+                            <option value="Electricity">Electricity</option>
+                            <option value="Water">Water</option>
+                            <option value="Internet">Internet</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3" id="charity-name-container" style="display: none;">
+                        <label for="charity_name" class="form-label">Charity Name</label>
+                        <input type="text" name="charity_name" id="charity_name" class="form-control">
+                    </div>
+
+                    <div class="mb-3">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-history"></i> Transaction History
+            </div>
+            <div class="card-body">
+                <div class="transaction-list" id="transaction-list">
+                    <!-- Transaction items will be injected here by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2024 eT3. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+    // Toggle between dark mode and light mode
+    document.getElementById('toggle-mode').addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+    });
+
+    // Update visible form fields based on selected action
+    document.getElementById('action').addEventListener('change', function() {
+        const action = this.value;
+
+        // Show or hide specific containers based on the selected action
+        document.getElementById('recipient-number-container').style.display = action === 'send_money' ? 'block' : 'none';
+        document.getElementById('bill-type-container').style.display = action === 'pay_bill' ? 'block' : 'none';
+        document.getElementById('charity-name-container').style.display = action === 'donate' ? 'block' : 'none';
+        document.getElementById('old-pin-container').style.display = action === 'change_pin' ? 'block' : 'none';
+        document.getElementById('new-pin-container').style.display = action === 'change_pin' ? 'block' : 'none';
+        document.getElementById('amount-container').style.display = action !== 'change_pin' ? 'block' : 'none';
+    });
+
+    // Handle form submission using AJAX
+    document.getElementById('action-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const formData = new FormData(this);
+        console.log('Form Data:', Array.from(formData.entries())); // Log form data
+
+        // Submit form data via fetch (AJAX request)
+        fetch('{% url "dashboard" %}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+                'X-CSRFToken': formData.get('csrfmiddlewaretoken') // Use CSRF token for security
+            }
+        })
+        .then(response => {
+            console.log('Response:', response); // Log the response
+            return response.json(); // Convert to JSON
+        })
+        .then(data => {
+            const alertContainer = document.getElementById('alert-container');
+            console.log('Data:', data); // Log the response data
+            alertContainer.innerHTML = `<div class="alert"><i class="fas fa-info-circle"></i> ${data.message}</div>`;
+            return fetch('/api/get_balance/'); // Ensure this URL is correct
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Balance Data:', data); // Log balance data
+            document.getElementById('current-balance').innerText = parseFloat(data.balance).toFixed(2);
+            updateTransactionList(); // Refresh the transaction list with the latest data
+        })
+        .catch(error => {
+            console.error('Error:', error); // Log any errors
+            alertContainer.innerHTML = `<div class="alert alert-danger"><i class="fas fa-exclamation-circle"></i> An error occurred. Please try again.</div>`;
+        });
+    });
+
+    // Function to update the transaction list
+    function updateTransactionList() {
+        // Fetch the transaction data from the backend (API)
+        fetch('/api/get_transactions/') // Ensure this URL is correct
+            .then(response => response.json())
+            .then(data => {
+                const transactionList = document.getElementById('transaction-list');
+                transactionList.innerHTML = ''; // Clear the current transaction list
+
+                // Iterate over the transaction data and add each transaction to the list
+                data.transactions.forEach(transaction => {
+                    const item = document.createElement('div');
+                    item.className = 'transaction-item';
+                    item.innerHTML = `
+                        <strong>${transaction.transaction_type}</strong>
+                        <p>Amount: $${transaction.amount.toFixed(2)}</p>
+                        <p>Date: ${new Date(transaction.date).toLocaleString()}</p>
+                    `;
+                    transactionList.appendChild(item); // Add the transaction to the transaction list
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching transactions:', error);
+            });
+    }
+
+    // Initial call to populate the transaction list when the page loads
+    updateTransactionList();
+</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

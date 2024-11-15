@@ -1,0 +1,156 @@
+<experiments>
+    <experiment>
+        <experiment_id>E129</experiment_id>
+        <description>Analysis of chemical reaction rates at different temperatures</description>
+        <results>
+            <control>Slow reaction</control>
+            <test>Rapid reaction at 60°C</test>
+            <reaction_time>15 mins</reaction_time>
+        </results>
+        <metadata>
+            <date>2023-07-15</date>
+            <researcher>Dr. Orange</researcher>
+            <location>Lab E</location>
+        </metadata>
+    </experiment>
+    <experiment>
+        <experiment_id>E130</experiment_id>
+        <description>Testing different water purification methods</description>
+        <results>
+            <control>0.5 ppm contaminants</control>
+            <test>0.1 ppm contaminants with new method</test>
+            <purity_increase>80%</purity_increase>
+        </results>
+        <metadata>
+            <date>08/05/2023</date>
+            <researcher>Dr. Purple</researcher>
+            <location>Lab F</location>
+        </metadata>
+    </experiment>
+    <experiment>
+        <experiment_id>E131</experiment_id>
+        <description>Effects of varying light intensities on solar panel efficiency</description>
+        <results>
+            <control>80% efficiency</control>
+            <test>90% efficiency at high intensity</test>
+            <efficiency_gain>10%</efficiency_gain>
+        </results>
+        <metadata>
+            <date>2023-09-20</date>
+            <researcher>Dr. Gray</researcher>
+            <location>Field B</location>
+        </metadata>
+    </experiment>
+    <experiment>
+        <experiment_id>E132</experiment_id>
+        <description>Comparative study of different insulation materials</description>
+        <results>
+            <control>Standard insulation</control>
+            <test>Improved thermal resistance with new material</test>
+            <thermal_resistance>High</thermal_resistance>
+        </results>
+        <metadata>
+            <date>2023-10-10</date>
+            <researcher>Dr. Brown</researcher>
+            <location>Lab G</location>
+        </metadata>
+    </experiment>
+    <experiment>
+        <experiment_id>E133</experiment_id>
+        <description>Impact of different exercise regimes on cardiovascular health</description>
+        <results>
+            <control>Moderate improvement</control>
+            <test>Significant improvement with high-intensity training</test>
+            <heart_health_index>4.2</heart_health_index>
+        </results>
+        <metadata>
+            <date>2023-11-05</date>
+            <researcher>Dr. Pink</researcher>
+            <location>Lab H</location>
+        </metadata>
+    </experiment>
+    <experiment>
+        <experiment_id>E134</experiment_id>
+        <description>Study on the durability of new construction materials</description>
+        <results>
+            <control>5 years</control>
+            <test>10 years</test>
+            <durability_increase>5</durability_increase>
+        </results>
+        <metadata>
+            <date>2023-12-12</date>
+            <researcher>Dr. Silver</researcher>
+            <location>Site A</location>
+        </metadata>
+    </experiment>
+    <experiment>
+        <experiment_id>E135</experiment_id>
+        <description>Effects of different fertilizers on crop yield</description>
+        <results>
+            <control>500 kg/acre</control>
+            <test>700 kg/acre</test>
+            <yield_increase>40%</yield_increase>
+        </results>
+        <metadata>
+            <date>2023-12-18</date>
+            <researcher>Dr. Gold</researcher>
+            <location>Field C</location>
+        </metadata>
+    </experiment>
+    <experiment>
+        <experiment_id>E136</experiment_id>
+        <description>Study of air quality improvements using different filtration systems</description>
+        <results>
+            <control>PM2.5 reduction by 30%</control>
+            <test>PM2.5 reduction by 60% with new system</test>
+            <air_quality_index>2</air_quality_index>
+        </results>
+        <metadata>
+            <date>2023-08-20</date>
+            <researcher>Dr. Cyan</researcher>
+            <location>Lab J</location>
+        </metadata>
+    </experiment>
+    <experiment>
+        <experiment_id>E137</experiment_id>
+        <description>Effects of UV radiation on bacterial growth</description>
+        <results>
+            <control>Bacterial growth normal</control>
+            <test>Bacterial growth reduced by 75%</test>
+            <bacterial_reduction_index>3</bacterial_reduction_index>
+        </results>
+        <metadata>
+            <date>2023-09-15</date>
+            <researcher>Dr. Magenta</researcher>
+            <location>Lab K</location>
+        </metadata>
+    </experiment>
+    <experiment>
+        <experiment_id>E138</experiment_id>
+        <description>Comparison of battery life in different smartphone models</description>
+        <results>
+            <control>Battery life of 10 hours</control>
+            <test>Battery life of 15 hours</test>
+            <battery_life_gain>50%</battery_life_gain>
+        </results>
+        <metadata>
+            <date>2023-11-25</date>
+            <researcher>Dr. Violet</researcher>
+            <location>Lab L</location>
+        </metadata>
+    </experiment>
+    <experiment>
+        <experiment_id>E139</experiment_id>
+        <description>Impact of different teaching methods on student performance</description>
+        <results>
+            <control>Moderate improvement</control>
+            <test>Significant improvement with interactive learning</test>
+            <performance_index>3.8</performance_index>
+        </results>
+        <metadata>
+            <date>2023-12-10</date>
+            <researcher>Dr. Indigo</researcher>
+            <location>School A</location>
+        </metadata>
+    </experiment>
+</experiments>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transaction History</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
+            color: #212529;
+        }
+
+        .navbar {
+            background-color: #007bff;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .navbar-brand {
+            color: #fff;
+        }
+
+        .container {
+            margin-top: 20px;
+        }
+
+        .card {
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            background-color: #007bff;
+            color: #fff;
+            font-size: 1.5rem;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .transaction-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .transaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.875rem;
+        }
+
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .card {
+                margin-bottom: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+{% load static %}
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'dashboard' %}">
+                <img src="{% static 'images/1724928422745.jpeg' %}" alt="Logo" style="height: 40px; width: 40px; border-radius: 50%; margin-right: 10px;">
+                eT3 - Tomorrow Information Technology · Transaction History
+            </a>
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-history"></i> Transaction History
+            </div>
+            <div class="card-body">
+                <div id="transaction-list">
+                    <p>Loading transactions...</p> <!-- Loading message -->
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2024 eT3. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        function updateTransactionList() {
+            // Fetch the transaction data from the backend (API)
+            fetch('/api/get_transactions/') // Ensure this URL is correct
+                .then(response => response.json())
+                .then(data => {
+                    const transactionList = document.getElementById('transaction-list');
+                    transactionList.innerHTML = ''; // Clear the current transaction list
+
+                    // Check if there are transactions and display them
+                    if (data.transactions.length > 0) {
+                        data.transactions.forEach(transaction => {
+                            const item = document.createElement('div');
+                            item.className = 'transaction-item';
+                            item.innerHTML = `
+                                <strong>${transaction.transaction_type}</strong>
+                                <p>Amount: $${transaction.amount.toFixed(2)}</p>
+                                <p>Date: ${new Date(transaction.date).toLocaleString()}</p>
+                            `;
+                            transactionList.appendChild(item); // Add the transaction to the transaction list
+                        });
+                    } else {
+                        transactionList.innerHTML = '<p>No transactions found.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching transactions:', error);
+                    document.getElementById('transaction-list').innerHTML = '<p>Error loading transactions.</p>';
+                });
+        }
+
+        // Initial call to populate the transaction list when the page loads
+        updateTransactionList();
+    </script>
+</body>
+</html>

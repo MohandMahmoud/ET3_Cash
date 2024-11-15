@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eT3Cash Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .navbar {
+            background-color: #007bff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.8em;
+        }
+        .navbar .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+        .navbar .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            padding: 8px 16px;
+            font-size: 1em;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .navbar .nav-links a:hover {
+            background-color: #0056b3;
+        }
+        .navbar .nav-links a.active {
+            background-color: #004085;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container h2 {
+            color: #007bff;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>eT3Cash</h1>
+        <div class="nav-links">
+            <a href="{% url 'deposit' %}">Deposit</a>
+            <a href="{% url 'withdraw' %}">Withdraw</a>
+            <a href="{% url 'send_money' %}">Send Money</a>
+            <a href="{% url 'pay_bill' %}">Pay Bill</a>
+            <a href="{% url 'create_virtual_card' %}">Create Virtual Card</a>
+            <a href="{% url 'check_balance' %}">Check Balance</a>
+            <a href="{% url 'view_transaction_history' %}">Transaction History</a>
+            <a href="{% url 'change_pin' %}">Change PIN</a>
+            <a href="{% url 'donate' %}">Donate</a>
+            <a href="{% url 'create_savings_account' %}">Savings Account</a>
+            <a href="{% url 'withdraw_savings' %}">Withdraw Savings</a>
+            <a href="{% url 'check_savings_balance' %}">Savings Balance</a>
+        </div>
+    </div>
+    <div class="container">
+        <h2>Welcome to eT3Cash!</h2>
+        <p>Manage your financial activities with ease using the links in the navigation bar.</p>
+    </div>
+</body>
+</html>
