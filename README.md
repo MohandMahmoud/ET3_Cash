@@ -9,6 +9,8 @@ A feature-rich application leveraging modern technologies to deliver a scalable 
 - 🛠️ **Backend**: RESTful APIs powered by Django for secure and efficient server-side operations.  
 - 🎨 **Frontend**: Vue.js combined with HTML, CSS, JavaScript, and TypeScript for dynamic and user-friendly web interfaces.  
 - 📱 **Mobile App**: Flutter for seamless cross-platform mobile experiences on iOS and Android.  
+- 📊 **Dashboard**: Interactive dashboard utilizing Chart.js for visual data representation.  
+- 📈 **Data Science**: Advanced analytics and machine learning models integrated for predictive insights and decision-making support.  
 - 🗄️ **Database**: PostgreSQL for reliable data management and storage.  
 - 📊 **Data Warehouse**: Aggregated data storage enabling comprehensive analytics and reporting.  
 - 🚀 **DevOps**: CI/CD pipelines ensuring smooth deployment and maintenance workflows.  
@@ -23,6 +25,8 @@ A feature-rich application leveraging modern technologies to deliver a scalable 
 | **🔙 Backend**        | Django                            |
 | **🌐 Frontend**       | Vue.js, HTML, CSS, JS, TS         |
 | **📱 Mobile**         | Flutter                           |
+| **📊 Dashboard**      | Chart.js                          |
+| **📈 Data Science**   | Python, ML Libraries              |
 | **🗄️ Database**       | PostgreSQL                        |
 | **✅ Testing**         | Automated Frameworks              |
 | **🚀 DevOps**         | CI/CD Pipelines, Docker           |
@@ -38,3 +42,4 @@ A feature-rich application leveraging modern technologies to deliver a scalable 
    ```bash
    git clone https://github.com//MohandMahmoud/ET3_Cash
    cd your-repo
+
