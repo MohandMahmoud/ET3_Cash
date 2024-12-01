@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background: #f4f7f6;
+            color: #333;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #4a90e2;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        /* Dashboard Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        /* Card Style */
+        .card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .card p {
+            font-size: 1.5rem;
+            color: #222;
+            font-weight: bold;
+        }
+
+        /* Charts Section */
+        canvas {
+            max-width: 100%;
+            height: 200px;
+        }
+
+        /* Table for Recent Transactions */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table th, table td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        table th {
+            background: #4a90e2;
+            color: #fff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1> Admin Dashboard</h1>
+
+    <div class="dashboard">
+        <!-- Total Transactions -->
+        <div class="card">
+            <h2>Total Transactions</h2>
+            <p id="totalTransactions"></p>
+        </div>
+
+        <!-- Total Users -->
+        <div class="card">
+            <h2>Total Users</h2>
+            <p id="totalUsers"></p>
+        </div>
+
+        <!-- Active Users -->
+        <div class="card">
+            <h2>Active Users</h2>
+            <p id="activeUsers"></p>
+        </div>
+
+        <!-- Total Balance -->
+        <div class="card">
+            <h2>Total Balance</h2>
+            <p id="totalBalance"></p>
+        </div>
+
+        <!-- Transaction Summary Chart -->
+        <div class="card">
+            <h2>Transaction Summary (Pie Chart)</h2>
+            <canvas id="transactionSummaryChart"></canvas>
+        </div>
+
+        <!-- Active vs Non-Active Users Pie Chart -->
+        <div class="card">
+            <h2>Active vs Non-Active Users (Pie Chart)</h2>
+            <canvas id="activeVsNonActiveChart"></canvas>
+        </div>
+
+
+
+
+
+        <!-- Radar Chart -->
+        <div class="card">
+            <h2>Performance Overview (Radar Chart)</h2>
+            <canvas id="radarChart"></canvas>
+        </div>
+
+        <!-- Doughnut Chart -->
+        <div class="card">
+            <h2>Sales Breakdown (Doughnut Chart)</h2>
+            <canvas id="doughnutChart"></canvas>
+        </div>
+
+        <!-- Recent Transactions -->
+        <div class="card">
+            <h2>Recent Transactions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Amount</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody id="recentTransactionsTable"></tbody>
+            </table>
+        </div>
+        <!-- Monthly Summary Chart (Bar Chart) -->
+        <div class="card">
+            <h2>Transaction Summary (Bar Chart)</h2>
+             <canvas id="barChart" width="3000" height="5000"></canvas>
+        </div>
+         <!-- Line Chart -->
+        <div class="card">
+            <h2>Trend Analysis (Line Chart)</h2>
+            <canvas id="lineChart"  width="3000" height="5000" ></canvas>
+        </div>
+         <!-- Monthly Summary Chart -->
+        <div class="card">
+            <h2>Monthly Summary (Bar Chart)</h2>
+            <canvas id="monthlySummaryChart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        // Fetch and display dashboard data
+        async function fetchDashboardData() {
+            try {
+                const response = await fetch('http://localhost:3000/dashboard');
+                const data = await response.json();
+
+                // Set Total Transactions
+                document.getElementById('totalTransactions').textContent = data.total_transactions.total_transactions;
+
+                // Set Total Users
+                document.getElementById('totalUsers').textContent = data.total_users.total_users;
+
+                // Set Active Users
+                document.getElementById('activeUsers').textContent = data.active_users.active_users;
+
+                // Set Total Balance
+                document.getElementById('totalBalance').textContent = `$${data.total_balance.total_balance}`;
+
+                // Transaction Summary Chart (Pie Chart)
+                const transactionSummaryCtx = document.getElementById('transactionSummaryChart').getContext('2d');
+                new Chart(transactionSummaryCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: data.transaction_summary.map(item => item.transaction_type),
+                        datasets: [{
+                            data: data.transaction_summary.map(item => item.total_amount),
+                            backgroundColor: ['#ff6384', '#36a2eb', '#cc65fe', '#ffce56']
+                        }]
+                    },
+                    options: { responsive: true }
+                });
+
+                // Active vs Non-Active Users Pie Chart
+                const activeVsNonActiveCtx = document.getElementById('activeVsNonActiveChart').getContext('2d');
+                new Chart(activeVsNonActiveCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Active Users', 'Non-Active Users'],
+                        datasets: [{
+                            data: [data.active_users.active_users, data.total_users.total_users - data.active_users.active_users],
+                            backgroundColor: ['#36a2eb', '#ff6384']
+                        }]
+                    },
+                    options: { responsive: true }
+                });
+
+                // Monthly Summary Chart (Bar Chart)
+                const monthlySummaryCtx = document.getElementById('monthlySummaryChart').getContext('2d');
+                new Chart(monthlySummaryCtx, {
+                    type: 'doughnut',
+    data: {
+        labels: data.monthly_summary.map(item => item.month),
+        datasets: [{
+            label: 'Amount',
+            data: data.monthly_summary.map(item => item.total_amount),
+            backgroundColor: ['#4a90e2', '#50e3c2', '#e94e77', '#f5a623', '#9b59b6'],
+            borderColor: '#ffffff',
+            borderWidth: 2
+        }]
+    },
+    options: {
+        responsive: true
+    }
+});
+
+                // Line Chart
+                const lineChartCtx = document.getElementById('lineChart').getContext('2d');
+                new Chart(lineChartCtx, {
+                     type: 'bar',
+    data: {
+        labels: data.monthly_summary.map(item => item.month),
+        datasets: [{
+            label: 'Amount',
+            data: data.monthly_summary.map(item => item.total_amount),
+            backgroundColor: '#4a90e2',
+            borderColor: '#2c3e50',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+
+                // Radar Chart
+                const radarChartCtx = document.getElementById('radarChart').getContext('2d');
+                new Chart(radarChartCtx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['January', 'February', 'March', 'April', 'May'],
+                        datasets: [{
+                            label: 'Performance',
+                            data: [20, 30, 40, 50, 60],
+                            backgroundColor: 'rgba(74, 144, 226, 0.3)',
+                            borderColor: '#4a90e2',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+               // Doughnut Chart
+                const doughnutChartCtx = document.getElementById('doughnutChart').getContext('2d');
+                new Chart(doughnutChartCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Sales', 'Returns', 'Other'],
+                        datasets: [{
+                            data: [60, 25, 15],
+                            backgroundColor: ['#36a2eb', '#ff6384', '#ffce56']
+                        }]
+                    },
+                    options: {
+                        responsive: true
+                    }
+                });
+
+
+
+                // Recent Transactions Table
+                const recentTransactionsTable = document.getElementById('recentTransactionsTable');
+                data.recent_transactions.forEach(transaction => {
+                    const row = `<tr>
+                        <td>${transaction.transaction_id}</td>
+                        <td>$${transaction.amount}</td>
+                        <td>${transaction.transaction_type}</td>
+                        <td>${transaction.transaction_date_id}</td>
+                    </tr>`;
+                    recentTransactionsTable.insertAdjacentHTML('beforeend', row);
+                });
+         // Transaction Summary Chart (Bar Chart)
+        const barChartCtx = document.getElementById('barChart').getContext('2d');
+        new Chart(barChartCtx, {
+            type: 'bar',
+            data: {
+                labels: data.transaction_summary.map(item => item.transaction_type),
+                datasets: [{
+                    label: 'Total Amount',
+                    data: data.transaction_summary.map(item => parseFloat(item.total_amount)),
+                    backgroundColor: '#4a90e2',
+                    borderColor: '#357ab7',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Amount ($)'
+                        },
+                        ticks: {
+                            stepSize: 500, // Adjust step size for better scaling
+                            font: {
+                                size: 16 // Increase font size for better visibility
+                            }
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Transaction Type'
+                        },
+                        ticks: {
+                            font: {
+                                size: 14 // Increase font size for better visibility
+                            }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'top'
+                    }
+                },
+                barThickness: 50, // Make the bars thicker
+                categoryPercentage: 1.0, // Full width for each bar category
+                barPercentage: 1.0, // Full width of the category
+            }
+        });
+
+            } catch (error) {
+                console.error('Error fetching dashboard data:', error);
+            }
+        }
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', fetchDashboardData);
+    </script>
+</body>
+</html>
