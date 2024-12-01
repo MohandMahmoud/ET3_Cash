@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/5d740dd7-a1e8-4b09-80ca-51cc1f950bb8)![Application Banner](./Dashboard/image.png)
+![image](https://github.com/user-attachments/assets/5d740dd7-a1e8-4b09-80ca-51cc1f950bb8)![Application Banner](./image.png)
 # 🌐 Full-Stack Web and Mobile Application  
 
 A feature-rich application leveraging modern technologies to deliver a scalable and high-performance solution for web and mobile platforms. It incorporates robust backend architecture, interactive frontend designs, and cross-platform mobile capabilities, all supported by advanced analytics and automated processes.
