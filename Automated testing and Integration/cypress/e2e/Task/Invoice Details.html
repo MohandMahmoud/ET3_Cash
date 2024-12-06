@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Details</title>
+</head>
+<style> 
+    input {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    .button {
+      background-color: #04AA6D; /* Green */
+      border: none;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    
+    .button1 {border-radius: 4px;}
+    .button2 {border-radius: 4px;}
+    </style>
+<body>
+    <h2>A Invoice Details</h2>
+<form>
+  <label for="lineNo">Line No</label>
+  <input type="text" id="lineNo" name="fname">
+  <label for="PROUDCT_NAME">PROUDCT NAME</label>
+  <input type="text" id="PROUDCT_NAME" name="fname">
+  <label for="UNITNO">UNITNO</label>
+  <input type="text" id="UNITNO" name="fname">
+  <label for="PRICE">PRICE</label>
+  <input type="text" id="PRICE" name="fname">
+  <label for="quantity">quantity</label>
+  <input type="text" id="quantity" name="fname">
+  <label for="TOTAL decimal">TOTAL </label>
+  <input type="text" id="TOTAL decimal" name="fname">
+  <label for="EXPIRE_DATE date">EXPIRE_DATE</label>
+  <input type="text" id="EXPIRE_DATE date" name="fname">
+  <button class="button button1"> Add to Invoice List</button>
+  <button class="button button2"onclick="Home_Page()"> Home_Page</button>
+  <button class="button button2"onclick="Invoice_List()"> Invoice List</button>
+</form>
+</body>
+<script>
+    function Home_Page() {
+            window.location.href = "C://Users//honda//Downloads//New folder//cypress//e2e//homepage.html";
+        }
+    function Invoice_List() {
+            window.location.href = "C://Users//honda//Downloads//New folder//cypress//e2e//Invoice_List.html";
+        }    
+</script>
+</html>

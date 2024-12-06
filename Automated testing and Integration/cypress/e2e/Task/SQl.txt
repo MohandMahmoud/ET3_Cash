@@ -1,0 +1,24 @@
+
+create database Interview ,
+
+USE Interview ,
+
+create table InvoiceDetails 
+( 
+   lineNo INT primary,
+   PROUDCT_NAME varchar(100),
+   UNITNO INT ,
+   PRICE decimal(10,2),
+   quantity  decimal(10,2),
+   TOTAL decimal(10,2),
+   EXPIRE_DATE date ,
+   
+);
+create table Unit
+(
+  UNITNO INT primary,
+  UNITNAME varchar(100),
+) ;
+
+insert Interview (lineNo,PROUDCT_NAME,UNITNO,PRICE,quantity,TOTAL,EXPIRE_DATE)
+VALUE(5,'XX',4,450.5,3,100,24/10/2025)

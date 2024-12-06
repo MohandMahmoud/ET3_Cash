@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice_List</title>
+</head>
+<style>
+    #customers {
+      font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;
+    }
+    
+    #customers td, #customers th {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    
+    #customers tr:nth-child(even){background-color: #f2f2f2;}
+    
+    #customers tr:hover {background-color: #ddd;}
+    
+    #customers th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #04AA6D;
+      color: white;
+    }
+    .button {
+      background-color: #04AA6D; /* Green */
+      border: none;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    
+    .button1 {border-radius: 4px;}
+    .button2 {border-radius: 4px;}
+    </style>
+<body>
+    <h1>A Invoice List</h1>
+
+<table id="customers">
+  <tr>
+    <th>Line No</th>
+    <th>PROUDCT NAME</th>
+    <th>UNITNO</th>
+    <th>PRICE</th>
+    <th>quantity</th>
+    <th>TOTAL</th>
+    <th>EXPIRE_DATE</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Max</td>
+    <td>2</td>
+    <td>100</td>
+    <td>500</td>
+    <td>2000</td>
+    <td>23/10/2025</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Max</td>
+    <td>2</td>
+    <td>100</td>
+    <td>500</td>
+    <td>2000</td>
+    <td>23/10/2025</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>Max</td>
+    <td>2</td>
+    <td>100</td>
+    <td>500</td>
+    <td>2000</td>
+    <td>23/10/2025</td>
+  </tr>
+</table>
+<button class="button button1">Home Page</button>
+<button class="button button2">Invoice Details</button>
+</body>
+</html>
