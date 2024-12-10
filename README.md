@@ -27,7 +27,7 @@ A feature-rich application leveraging modern technologies to deliver a scalable 
 | **🌐 Frontend**       | Vue.js, HTML, CSS, JS, TS         |
 | **📱 Mobile**         | Flutter                           |
 | **📊 Dashboard**      | Chart.js                          |
-| **📈 Data Science**   | Python, ML Libraries              |
+| **📈 Data Science**   | Python, ML, DL, BigData Libraries              |
 | **🗄️ Database**       | PostgreSQL                        |
 | **✅ Testing**         | Automated Frameworks              |
 | **🚀 DevOps**         | CI/CD Pipelines, Docker           |
